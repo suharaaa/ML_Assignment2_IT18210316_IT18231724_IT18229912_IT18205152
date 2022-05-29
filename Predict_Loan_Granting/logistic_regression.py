@@ -20,18 +20,17 @@ x = dataset[feature_names]
 y = dataset["default"]
 
 # Plot chart for frequency of default yes and no
-print(y.value_counts())
 sns.countplot(x='y', data=dataset)
 plt.show()
 
 # preprocess data
-x.job = pd.Categorical(pd.factorize(x.job)[0])
-x.marital = pd.Categorical(pd.factorize(x.marital)[0])
-x.education = pd.Categorical(pd.factorize(x.education)[0])
-x.housing = pd.Categorical(pd.factorize(x.housing)[0])
-x.loan = pd.Categorical(pd.factorize(x.loan)[0])
+x.loc[:, 'job'] = pd.Categorical(pd.factorize(x.job)[0])
+x.loc[:, 'marital'] = pd.Categorical(pd.factorize(x.marital)[0])
+x.loc[:, 'education'] = pd.Categorical(pd.factorize(x.education)[0])
+x.loc[:, 'housing'] = pd.Categorical(pd.factorize(x.housing)[0])
+x.loc[:, 'loan'] = pd.Categorical(pd.factorize(x.loan)[0])
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
 
 scaler = MinMaxScaler()
 x_train = scaler.fit_transform(x_train)
